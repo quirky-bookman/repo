@@ -52,14 +52,6 @@ const fetchImages = async (p = page.value) => {
   }
 };
 
-// function downloadImage(url) {
-//   const link = document.createElement("a");
-//   link.href = url;
-//   link.download = "unsplash-image.jpg";
-//   link.target = "_blank";
-//   link.click();
-// }
-
 async function downloadImage(url, filename = "unsplash-image.jpg") {
   try {
     const response = await fetch(url, {
@@ -93,12 +85,23 @@ const categoryOptions = [
   { label: "Sports", value: "sports" }
 ];
 
-watch([category, count], () => {
-  page.value = 1;
-  fetchImages(1);
+watch([page, category], ([newPage, newCategory]) => {
+  const params = new URLSearchParams(window.location.search);
+  params.set("page", newPage);
+  params.set("category", newCategory);
+  window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
 });
 
-onMounted(() => fetchImages(1));
+onMounted(() => {
+  const params = new URLSearchParams(window.location.search);
+  const savedPage = parseInt(params.get("page"));
+  const savedCategory = params.get("category");
+
+  if (savedCategory) category.value = savedCategory;
+  if (savedPage && savedPage > 0) page.value = savedPage;
+
+  fetchImages(page.value);
+});
 
 const options = ref([
   { label: "Small", key: "small" },
@@ -110,8 +113,6 @@ const options = ref([
 function handleSelect(key, img) {
   const url = img.urls[key];
 
-  // console.log(img, key);
-
   if (url) {
     downloadImage(url, `${img.alt_description}.jpg`);
   }
@@ -122,7 +123,6 @@ function handleSelect(key, img) {
   <div class="container" style="padding-top: 20px; padding-bottom: 20px">
     <n-space class="inputs-holder" justify="center" horizontal style="margin-bottom: 20px">
       <n-select v-model:value="category" filterable tag :options="categoryOptions" placeholder="Select category" />
-      <!-- <n-button type="primary" @click="fetchImages">Get Images</n-button> -->
     </n-space>
     <n-space justify="center" horizontal>
       <n-spin v-if="loading" size="medium" />
@@ -142,11 +142,6 @@ function handleSelect(key, img) {
                 </svg>
               </n-button>
             </n-dropdown>
-
-            <!-- <n-button type="primary" size="small" @click="downloadImage(img.urls.small, 'small.jpg')">Small</n-button>
-            <n-button type="primary" size="small" @click="downloadImage(img.urls.regular, 'regular.jpg')">Regular</n-button>
-            <n-button type="primary" size="small" @click="downloadImage(img.urls.full, 'full.jpg')">Full</n-button>
-            <n-button type="primary" size="small" @click="downloadImage(img.urls.raw, 'raw.jpg')">Raw</n-button> -->
           </n-space>
         </div>
       </div>
@@ -200,7 +195,6 @@ img {
   border-radius: 8px;
   object-fit: cover;
   opacity: 0;
-  /* transition: 0.7s ease; */
 }
 
 img.loaded {
