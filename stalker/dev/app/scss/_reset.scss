@@ -5,7 +5,8 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: $body-bg;
+  // background: $body-bg;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.7), rgb(0 0 0 / 0.2)), url("#{$images}bg-5.jpg");
   color: $text-color-base;
   font: $font-weight-base #{$font-size-base}/ $line-height-base $font-family-base;
   font-smoothing: antialiased;
@@ -83,13 +84,16 @@ input[type="submit"]::-moz-focus-inner {
 
 .site-main {
   position: relative;
+
   z-index: 5;
   flex-grow: 1;
   max-width: 125rem;
   width: 100%;
-  margin: auto;
+  margin: 3rem auto 0 auto;
   background: $bg-color;
   border: solid 0.1rem $border-color;
+  // border-radius: 1.2rem;
+  overflow: hidden;
 }
 
 strong,
@@ -102,7 +106,7 @@ hr,
   border: none;
   margin: 0;
   opacity: 1;
-  border-bottom: solid 0.1rem hsla(36, 49%, 90%, 0.2);
+  border-bottom: solid 0.1rem $border-color;
 }
 
 .wp-block-separator {

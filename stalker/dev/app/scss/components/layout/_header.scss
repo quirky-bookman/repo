@@ -41,7 +41,6 @@
     align-items: center;
     min-height: 4.5rem;
     margin-bottom: 15rem;
-    border-bottom: solid 0.1rem $border-color;
     box-shadow: 0.4rem 0 1rem rgba($black, 0.65);
 
     .container-fluid {
@@ -72,8 +71,9 @@
     padding-top: 1.5rem;
     font-family: $secondary-font;
     z-index: 2;
-    border-left: 0.1rem solid $border-color;
-    border-right: 0.1rem solid $border-color;
+    margin-top: 3rem;
+    border: solid 0.1rem $border-color;
+    // border-radius: 1.2rem;
     background: $bg-color;
 
     .menu {
@@ -141,6 +141,7 @@
     background-position: 50% 100%;
     background-size: cover;
     background-repeat: no-repeat;
+    border-top: solid 0.1rem $border-color;
 
     @include media-breakpoint-down(sm) {
       flex-direction: column;
