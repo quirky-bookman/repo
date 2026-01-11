@@ -1,11 +1,8 @@
 .accordion {
   .accordion-item {
+    margin-bottom: 1.5rem;
     background: #0f0d0c;
     border: 1px solid hsla(36, 49%, 90%, 0.2);
-
-    &:not(:last-child) {
-      margin-bottom: 1.5rem;
-    }
   }
 
   .accordion-header {
@@ -45,5 +42,11 @@
 
   .accordion-body {
     padding: 1.5rem;
+
+    p {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }
