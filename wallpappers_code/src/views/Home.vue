@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch, onMounted } from "vue";
 
-const UNSPLASH_ACCESS_KEY = "VyoxZkHMlRKa2lr2dBxkJ8YdvSP9htPNchan2JdfQVA";
+const UNSPLASH_ACCESS_KEY = import.meta.env.VITE_API_BASE_URL;
 const loading = ref(false);
 const error = ref(null);
 const images = ref([]);
