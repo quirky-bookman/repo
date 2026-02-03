@@ -6,7 +6,7 @@ const loading = ref(false);
 const error = ref(null);
 const images = ref([]);
 
-const category = ref("nature");
+const category = ref("");
 const count = ref(30);
 
 const loaded = ref([]);
@@ -90,17 +90,18 @@ watch([page, category], ([newPage, newCategory]) => {
   params.set("page", newPage);
   params.set("category", newCategory);
   window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
+
+  fetchImages(page.value);
 });
 
 onMounted(() => {
+  category.value = "nature";
   const params = new URLSearchParams(window.location.search);
   const savedPage = parseInt(params.get("page"));
   const savedCategory = params.get("category");
 
   if (savedCategory) category.value = savedCategory;
   if (savedPage && savedPage > 0) page.value = savedPage;
-
-  fetchImages(page.value);
 });
 
 const options = ref([
@@ -147,7 +148,7 @@ function handleSelect(key, img) {
       </div>
     </div>
 
-    <n-pagination v-if="images.length > 0" v-model:page="page" :page-count="totalPages" @update:page="(p) => fetchImages(p)" />
+    <n-pagination v-if="images.length > 0" v-model:page="page" :page-count="totalPages" />
   </div>
 </template>
 
