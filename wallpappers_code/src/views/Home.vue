@@ -32,7 +32,7 @@ const fetchImages = async (p = page.value) => {
 
     if (!res.ok) throw new Error(`Error: ${res.status}`);
     const data = await res.json();
-    console.log("unsplash:", data);
+    // console.log("unsplash:", data);
 
     images.value = data.results || [];
     totalResults.value = data.total || 0;
