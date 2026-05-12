@@ -1,22 +1,15 @@
+import { createApp } from 'vue'
 import './assets/main.css'
+import { createRouter, createWebHistory } from 'vue-router'
+import ui from '@nuxt/ui/vue-plugin'
+import App from './App.vue'
 
-import { createApp } from 'vue';
-import App from './App.vue';
-import naive from 'naive-ui'
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [{ path: '/:pathMatch(.*)*', component: App }],
+})
 
-import { createPinia } from 'pinia'
-
-import masonry from 'vue-next-masonry';
-
-import router from './router';
-
-const app = createApp(App);
-
-app.use(naive);
-app.use(createPinia());
-
-app.use(masonry);
-
-app.use(router);
-
-app.mount('#app');
+const app = createApp(App)
+app.use(router)
+app.use(ui)
+app.mount('#app')
