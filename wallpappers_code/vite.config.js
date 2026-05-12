@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import ui from '@nuxt/ui/vite'
 
 export default defineConfig({
-  base: '/wallpappers_code/',
+  base: '/repo/wallpappers/',
   plugins: [
     vue(),
     ui(),
